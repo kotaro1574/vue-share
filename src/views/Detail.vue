@@ -14,10 +14,10 @@
         </div>
         <div class="message" v-for="(comment, index) in data" :key="index">
           <div class="flex">
-            <p class="name">{{comment.name}}</p>
+            <p class="name">{{comment.commtent_user.name}}</p>
           </div>
           <div>
-            <p class="text">{{comment.content}}</p>
+            <p class="text">{{comment.comment.content}}</p>
           </div>
         </div>
         <input type="text" v-model="content" />
@@ -32,18 +32,47 @@
 <script>
 import SideNavi from "../components/SideNavi";
 import Message from "../components/Message";
+import axios from "axios";
 export default {
   props: ["id"],
   data() {
     return {
       content: "",
-      data: [{ name: "太郎", like: [], share: "初めまして"}]
+      data: "",
     };
+  },
+  methods: {
+    send() {
+      axios
+        .post("https://frozen-falls-83149.herokuapp.com/api/commit", {
+          share_id: this.id,
+          user_id: this.$store.state.user.id,
+          content: this.content
+        })
+        .then((response) => {
+          console.log(response);
+          this.content = "";
+          this.$router.go({
+            path: this.$router.currentRoute.path,
+            force: true,
+          });
+        });
+    },
+    comment() {
+      axios
+        .get("https://frozen-falls-83149.herokuapp.com/api/shares/" + this.id)
+        .then((response) => {
+          this.data = response.data.comment;
+        });
+    },
+  },
+  created() {
+    this.comment();
   },
   components: {
     SideNavi,
     Message
-  }
+  },
 };
 </script>
 
