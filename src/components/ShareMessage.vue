@@ -1,9 +1,9 @@
 <template>
   <div class="share">
     <p>シェア</p>
-    <textarea></textarea>
+    <textarea v-model="share"></textarea>
     <div>
-      <button>シェアする</button>
+      <button @click="send()">シェアする</button>
     </div>
   </div>
 </template>
