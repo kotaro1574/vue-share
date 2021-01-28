@@ -44,7 +44,7 @@ export default {
   methods: {
     send() {
       axios
-        .post("https://frozen-falls-83149.herokuapp.com/api/commit", {
+        .post("https://frozen-falls-83149.herokuapp.com/api/comment", {
           share_id: this.id,
           user_id: this.$store.state.user.id,
           content: this.content
