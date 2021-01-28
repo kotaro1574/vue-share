@@ -1,5 +1,5 @@
 <template>
-  <div class="felx">
+  <div class="flex">
     <div class="left">
       <SideNavi />
     </div>
@@ -21,7 +21,7 @@
           </div>
         </div>
         <input type="text" v-model="content" />
-        <div @click="send">
+        <div @click="send()">
           <button>コメント</button>
         </div>
       </div>
